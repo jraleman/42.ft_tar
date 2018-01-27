@@ -29,7 +29,7 @@ int		ft_archive(int *fds, char **names)
 
 void	print_usage(char const *progname)
 {
-	printf("%s file_archive file1 [file2 ... fileN]\n", progname);
+	printf("%s file_archive [file1 ... fileN]\n", progname);
 	return ;
 }
 
