@@ -11,13 +11,14 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 /*
 ** Compress multiple files to a single archive.
 ** Need to add metadata about the info of the files to the archive.
 */
 
-int		ft_archive()
+int		ft_archive(int *fds, char **names)
 {
 	return (0);
 }
@@ -26,7 +27,7 @@ int		ft_archive()
 ** Print ft_archive basic usage message.
 */
 
-void	print_usage(char *progname)
+void	print_usage(char const *progname)
 {
 	printf("%s file_archive file1 [file2 ... fileN]\n", progname);
 	return ;
@@ -42,17 +43,21 @@ void	print_usage(char *progname)
 
 int		main(int argc, char const *argv[])
 {
-	// int *fds;
+	int	*fds;
 
-	// if (!(fds = (int *)malloc(sizeof(int) * (argc - 2)))
-	// {
-			// printf("%s\n", "Malloc failed!");
-			// return (-1);
-	// }
 	if (argc > 2)
 	{
+		if (!(fds = (int *)malloc(sizeof(int) * (argc - 2))))
+		{
+				printf("%s\n", "Malloc failed!");
+				return (-1);
+		}
 		// open files to file descriptor?
-		// ft_archive(int *fds, char **argv);
+		// if (ft_archive(int *fds, char **argv) != 0)
+		// {
+		// 	printf("%s\n", "Falied to create archive!");
+		// 	return (-2);
+		// }
 	}
 	else
 	{
