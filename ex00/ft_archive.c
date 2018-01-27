@@ -18,7 +18,7 @@
 ** Need to add metadata about the info of the files to the archive.
 */
 
-int		ft_archive(int *fds, char **names)
+int		ft_archive(int *fds, char const *names[])
 {
 	return (0);
 }
@@ -49,15 +49,15 @@ int		main(int argc, char const *argv[])
 	{
 		if (!(fds = (int *)malloc(sizeof(int) * (argc - 2))))
 		{
-				printf("%s\n", "Malloc failed!");
-				return (-1);
+			printf("%s\n", "Malloc failed!");
+			return (-1);
 		}
-		// open files to file descriptor?
-		// if (ft_archive(int *fds, char **argv) != 0)
-		// {
-		// 	printf("%s\n", "Falied to create archive!");
-		// 	return (-2);
-		// }
+		// open files to file descriptor
+		if (ft_archive(fds, argv) != 0)
+		{
+			printf("%s\n", "Failed to create archive!");
+			return (-2);
+		}
 	}
 	else
 	{
