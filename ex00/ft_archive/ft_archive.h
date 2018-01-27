@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_archive.c                                       :+:      :+:    :+:   */
+/*   ft_archive.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaleman <jaleman@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/26 18:51:01 by jaleman           #+#    #+#             */
-/*   Updated: 2018/01/26 18:51:02 by jaleman          ###   ########.fr       */
+/*   Created: 2018/01/27 04:02:02 by jaleman           #+#    #+#             */
+/*   Updated: 2018/01/27 04:02:03 by jaleman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_archive.h"
+#ifndef FT_ARCHIVE_H
+# define FT_ARCHIVE_H
 
 /*
-** Compress multiple files to a single archive.
-** Need to add metadata about the info of the files to the archive.
+** Header files dependencies.
 */
 
-int		ft_archive(int *fds, char const *names[])
-{
-	return (0);
-}
+# include <stdio.h>
+# include <stdlib.h>
+
+/*
+** ft_archive prototype
+*/
+
+int		ft_archive(int *fds, char const *names[]);
+
+#endif
