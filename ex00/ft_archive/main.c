@@ -22,7 +22,6 @@ static void	print_usage(char const *progname)
 	return ;
 }
 
-
 /*
 ** Main function:
 **
