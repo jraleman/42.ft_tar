@@ -7,3 +7,4 @@
 - [Fseek() function concept in file](https://www.youtube.com/watch?v=qBWh3ET6nqY)
 - [Extract archived file in C Programming (user2901535's answer)](https://stackoverflow.com/a/19487639)
 - [Creating my own archive tool in C (Kaslai's answer)](https://stackoverflow.com/a/29644552)
+- [Subset of UNIX standard tar implementation (Ahmed's question)](https://codereview.stackexchange.com/q/115575)
