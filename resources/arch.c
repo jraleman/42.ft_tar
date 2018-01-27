@@ -110,7 +110,7 @@ int main(int argc, char** argv)
     while(ptr != NULL)
     {
         fp = ptr->fp;
-        while((rsize = fread(block, 1, sizeof(block), fp)))ls -
+        while((rsize = fread(block, 1, sizeof(block), fp)))
         {
             fwrite(block, 1, rsize, fpar);
         }
