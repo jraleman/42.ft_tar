@@ -16,25 +16,39 @@
 ** Modifies data to conform with the input requirements of another function.
 */
 
-// int		header_preprocessor()
-// {
-// 	return (0);
-// }
+static int	header_preprocessor(int count, char const *names[])
+{
+	int		i;
+
+	i = 0;
+	while (i < (count - 1))
+	{
+		// add metadata block
+		i += 1;
+	}
+	return (0);
+}
 
 /*
 ** Compress multiple files to a single archive.
 ** Need to add metadata about the info of the files to the archive.
 */
 
-int		ft_archive(int *fds, char const *names[])
+int		ft_archive(int count, char const *names[])
 {
 	// Create Header
-	//   - header_preprocessor()
-	//   - header_compiler()
-	//   - header_writer()
-	// Read Block
-	//   - read_block()
-	// Create BODY
-	//   - body_writer()
+	printf("Pre-processing files: %s\n", "--list of files--");
+	printf("Collecting metadata...\n");
+	header_preprocessor(count, names);
+	printf("Compiling header information...\n");
+	// header_compile();
+	printf("Creating and writting header to archive...\n");
+	// header_write();
+
+	// read_block()
+
+	// body_writer()
+
+	// print_stats()
 	return (0);
 }

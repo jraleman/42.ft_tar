@@ -32,20 +32,12 @@ static void	print_usage(char const *progname)
 
 int			main(int argc, char const *argv[])
 {
-	int		*fds;
-
 	if (argc > 2)
 	{
-		if (!(fds = (int *)malloc(sizeof(int) * (argc - 2))))
-		{
-			printf("%s\n", "Malloc failed!");
-			return (-1);
-		}
-		// open files to file descriptor
-		if (ft_archive(fds, argv) != 0)
+		if (ft_archive(argc, argv) != 0)
 		{
 			printf("%s\n", "Failed to create archive!");
-			return (-2);
+			return (-1);
 		}
 	}
 	else

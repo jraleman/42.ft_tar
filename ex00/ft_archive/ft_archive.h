@@ -46,6 +46,6 @@ struct					s_metadata
 ** ft_archive prototype
 */
 
-int						ft_archive(int *fds, char const *names[]);
+int						ft_archive(int count, char const *names[]);
 
 #endif
