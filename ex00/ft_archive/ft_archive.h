@@ -26,26 +26,26 @@
 ** Source: http://www.gnu.org/software/tar/manual/html_node/Blocking.html
 */
 
-# define BLOCK_SIZE		(512)
+# define BLOCK_SIZE	(512)
 
 /*
 ** Metadata structure (linked-list)
 */
 
-struct					s_metadata
+typedef struct		s_mdata
 {
-	FILE				*fptr;
-	char				*fname;
-	int					size;
-	int					nsize;
-	int					ssize;
-	struct s_metadata	*next;
-}						t_metadata;
+	FILE			*fptr;
+	char			*fname;
+	int				size;
+	int				nsize;
+	int				ssize;
+	struct s_mdata	*next;
+}					t_mdata;
 
 /*
 ** ft_archive prototype
 */
 
-int						ft_archive(int count, char const *names[]);
+int					ft_archive(int count, char const *names[]);
 
 #endif
