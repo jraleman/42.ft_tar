@@ -18,7 +18,9 @@
 */
 
 # include <stdio.h>
+# include <string.h>
 # include <stdlib.h>
+# include <strings.h>
 
 /*
 ** Read block size.
@@ -34,8 +36,8 @@
 
 typedef struct		s_mdata
 {
-	FILE			*fptr;
-	char			*fname;
+	FILE			*fp;
+	char			*name;
 	int				size;
 	int				nsize;
 	int				ssize;
@@ -46,6 +48,6 @@ typedef struct		s_mdata
 ** ft_archive prototype
 */
 
-int					ft_archive(int count, char const *names[]);
+int					ft_archive(int count, char *names[]);
 
 #endif

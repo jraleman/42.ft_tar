@@ -16,7 +16,7 @@
 ** Print ft_archive basic usage message.
 */
 
-static void	print_usage(char const *progname)
+static void	print_usage(char *progname)
 {
 	printf("%s file_archive [file1 ... fileN]\n", progname);
 	return ;
@@ -30,7 +30,7 @@ static void	print_usage(char const *progname)
 ** argv[2...N] -> files
 */
 
-int			main(int argc, char const *argv[])
+int			main(int argc, char *argv[])
 {
 	if (argc > 2)
 	{
