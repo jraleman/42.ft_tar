@@ -27,14 +27,22 @@ static void	print_usage(char *progname)
 **
 ** argv[0] -----> program name
 ** argv[1] -----> archive
+
+	argv[1] == "directory/HELLO.txt"
+
+	directory/HELLO.txt
+
 ** argv[2...N] -> files
 */
 
 int			main(int argc, char *argv[])
 {
+	FILE	*tar;
+
 	if (argc > 2)
 	{
-		if (ft_archive(argc, argv) != 0)
+		tar = fopen(argv[1], "wb");
+		if (ft_archive(tar, argv, argc) != 0)
 		{
 			printf("%s\n", "Failed to create archive!");
 			return (-1);

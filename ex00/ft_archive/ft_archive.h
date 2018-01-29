@@ -36,18 +36,22 @@
 
 typedef struct		s_mdata
 {
-	FILE			*fp;
-	char			*name;
-	int				size;
-	int				nsize;
-	int				ssize;
-	struct s_mdata	*next;
+	char			name[100];
+	char			mode[8];
+	char			owner[8];
+	char			group[8];
+	char			size[12];
+	char			modified[12];
+	char			checksum[8];
+	char			type[1];
+	char			link[100];
+	char			padding[255];
 }					t_mdata;
 
 /*
 ** ft_archive prototype
 */
 
-int					ft_archive(int count, char *names[]);
+int					ft_archive(FILE *tar, char *names[], int count);
 
 #endif
