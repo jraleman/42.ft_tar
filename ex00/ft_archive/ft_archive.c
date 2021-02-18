@@ -12,64 +12,74 @@
 
 #include "ft_archive.h"
 
-/*
-** ...
-*/
-
-static void	file_expand(FILE *fp, size_t amount)
+// Prints usage message, returns error code
+static int	usage_error(char *name)
 {
-	while (amount)
-	{
+	printf("%s archive_name [file_1 ... file_N]\n", name);
+	return ERR_USAGE;
+}
+
+// Prints archive creation error, returns code
+static int	archive_error(void) 
+{
+	printf("Failed to create archive!\n");
+	return ERR_CREATE;
+}
+
+// Expands a file
+static void	expand_file(FILE *fp, size_t amount)
+{
+	while (--amount)
 		fputc(0, fp);
-		amount -= 1;
-	}
-	return ;
 }
 
-/*
-** ...
-*/
-
-static int	add_files(FILE *tar, char *name)
+// Add files to archive
+static int	add_file(FILE *tar, char *name)
 {
+	int		ret = OK_CODE;
 	FILE	*input;
-	size_t	index;
-	size_t	offset;
+	size_t	index = ftell(tar);
+	size_t	offset = index % BLOCK_SIZE;
 
-	index = ftell(tar);
-	offset = index % BLOCK_SIZE;
 	if (offset != 0)
-		file_expand(tar, BLOCK_SIZE - offset);
+		expand_file(tar, BLOCK_SIZE - offset);
 	index = ftell(tar);
-	file_expand(tar, sizeof(t_mdata));
+	expand_file(tar, sizeof(t_mdata));
 	if (!(input = fopen(name, "rb")))
-		return (-1);
-
-	return (0);
+		ret = ERR_OPEN;
+	fclose(input);
+	return ret;
 }
 
-/*
-** Add multiple files to a single archive.
-*/
-
-int			ft_archive(char *archive, char *names[], int count)
+// Add multiple files to a single archive
+static int	ft_archive(char *names[], int count)
 {
-	int		i;
-	int		ret;
-	FILE	*tar;
+	int		ret = OK_CODE;
+	int		arg_index = 1;
+	FILE	*tar = fopen(names[1], "wb");
 
-	ret = 0;
-	tar = fopen(archive, "wb");
-	if (!tar)
-		return (-1);
-	i = 2;
-	while (i < count)
+	if (tar) 
 	{
-		if (add_files(tar, names[i]) != 0)
-			break ;
-		i += 1;
+		while (++arg_index < count)
+			if (add_file(tar, names[arg_index]) != OK_CODE)
+				break ;
+		expand_file(tar, BLOCK_SIZE * 2);
+		fclose(tar);
+		ret = arg_index == count;
 	}
-	file_expand(tar, 1024);
-	fclose(tar);
-	return (i == count);
+	else 
+		ret = ERR_CREATE;
+	return ret;
+}
+
+// Main function
+int			main(int argc, char *argv[])
+{
+	int		ret = OK_CODE;
+
+	if (argc > 3 && ft_archive(argv, argc) != OK_CODE)
+		ret = archive_error();
+	else if (argc < 3)
+		ret = usage_error(argv[0]);
+	return ret;
 }

@@ -13,45 +13,36 @@
 #ifndef FT_ARCHIVE_H
 # define FT_ARCHIVE_H
 
-/*
-** Header files dependencies.
-*/
-
+// Header files dependencies.
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
 # include <strings.h>
 
-/*
-** Read block size.
-** Used 512 bytes to copy tar's block size. :)
-** Source: http://www.gnu.org/software/tar/manual/html_node/Blocking.html
-*/
-
+// Read block size.
+// Used 512 bytes to copy tar's block size. :)
+// Source: http://www.gnu.org/software/tar/manual/html_node/Blocking.html
 # define BLOCK_SIZE	(512)
 
-/*
-** Metadata structure (linked-list)
-*/
+// Program return values
+# define OK_CODE	(0)
+# define ERR_USAGE	(1)
+# define ERR_CREATE	(2)
+# define ERR_OPEN	(3)
 
-typedef struct		s_mdata
+// Metadata structure
+typedef struct	s_mdata
 {
-	char			name[100];
-	char			mode[8];
-	char			owner[8];
-	char			group[8];
-	char			size[12];
-	char			modified[12];
-	char			checksum[8];
-	char			type[1];
-	char			link[100];
-	char			padding[255];
-}					t_mdata;
-
-/*
-** ft_archive prototype
-*/
-
-int					ft_archive(char *archive, char *names[], int count);
+	char	name[100];
+	char	mode[8];
+	char	owner[8];
+	char	group[8];
+	char	size[12];
+	char	modified[12];
+	char	checksum[8];
+	char	type[1];
+	char	link[100];
+	char	padding[255];
+}	t_mdata;
 
 #endif

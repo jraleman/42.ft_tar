@@ -1,5 +1,8 @@
 # ft_tar
 
+**[!] WARNING [!]** 
+- *Norminette is not being followed in this project*
+
 ## Resources
 
 - [File archiver in C (hfingler's answer)](https://stackoverflow.com/a/4287935)
