@@ -52,12 +52,14 @@ static int	add_files(FILE *tar, char *name)
 ** Add multiple files to a single archive.
 */
 
-int			ft_archive(FILE *tar, char *names[], int count)
+int			ft_archive(char *archive, char *names[], int count)
 {
 	int		i;
 	int		ret;
+	FILE	*tar;
 
 	ret = 0;
+	tar = fopen(archive, "wb");
 	if (!tar)
 		return (-1);
 	i = 2;
@@ -69,5 +71,5 @@ int			ft_archive(FILE *tar, char *names[], int count)
 	}
 	file_expand(tar, 1024);
 	fclose(tar);
-	return (i == count ? 0 : -1);
+	return (i == count);
 }

@@ -52,6 +52,6 @@ typedef struct		s_mdata
 ** ft_archive prototype
 */
 
-int					ft_archive(FILE *tar, char *names[], int count);
+int					ft_archive(char *archive, char *names[], int count);
 
 #endif

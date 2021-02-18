@@ -13,13 +13,23 @@
 #include "ft_archive.h"
 
 /*
-** Print ft_archive basic usage message.
+** Prints ft_archive basic usage message.
 */
 
-static void	print_usage(char *progname)
+static int	output_usage(char *name)
 {
-	printf("%s file_archive [file1 ... fileN]\n", progname);
-	return ;
+	printf("%s archive_name [file_1 ... file_N]\n", name);
+	return (1);
+}
+
+/*
+** Prints ft_archive basic usage message.
+*/
+
+static int output_create_error(void) 
+{
+	printf("Failed to create archive!\n");
+	return (2);
 }
 
 /*
@@ -37,20 +47,12 @@ static void	print_usage(char *progname)
 
 int			main(int argc, char *argv[])
 {
-	FILE	*tar;
+	int		ret;
 
-	if (argc > 2)
-	{
-		tar = fopen(argv[1], "wb");
-		if (ft_archive(tar, argv, argc) != 0)
-		{
-			printf("%s\n", "Failed to create archive!");
-			return (-1);
-		}
-	}
+	ret = 0;
+	if (argc > 2 && !ft_archive(argv[0], argv, argc))
+		ret = output_create_error();
 	else
-	{
-		print_usage(argv[0]);
-	}
-	return (0);
+		ret = output_usage(argv[0]);
+	return ret;
 }
