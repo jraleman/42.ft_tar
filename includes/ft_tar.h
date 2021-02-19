@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_archive.h                                       :+:      :+:    :+:   */
+/*   ft_tar.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaleman <jaleman@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ARCHIVE_H
-# define FT_ARCHIVE_H
+#ifndef FT_TAR_H
+# define FT_TAR_H
 
 // Header files dependencies.
 # include <stdio.h>
@@ -32,6 +32,10 @@
 # define ERR_USAGE	1
 # define ERR_CREATE	2
 # define ERR_OPEN	3
+
+// Boolean stuff
+# define FALSE		0
+# define TRUE		1
 
 // Metadata structure
 typedef struct	s_mdata
@@ -63,11 +67,12 @@ typedef struct s_tar
 }	t_tar;
 
 // Function prototypes
-int			usage_error(char *name);
 int			archive_error(void);
-void		expand_file(FILE *fp, size_t amount);
-int			ft_archive(int total, char *files[]);
-int			ft_tar(int argc, char *argv[]);
+int			usage_error(char *name);
 size_t		get_filesize(char *filename);
+int			ft_tar(int argc, char *argv[]);
+int			archive(int total, char *files[]);
+int			unarchive(int total, char *files[]);
+void		expand_file(FILE *fp, size_t amount);
 
 #endif

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_archive.c                                       :+:      :+:    :+:   */
+/*   archive.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaleman <jaleman@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -19,7 +19,9 @@ static int	add_file(FILE *archive, char *filename)
 	int		size = get_filesize(filename);
 
 	(void)archive;  // <- ignore this, just here to compile
-	// Open and close ()
+	(void)size; // <- ignore this, just here to compile
+	// Open-and-close function
+	// copy_content(char *filename)???
 	if (!(input = fopen(filename, "rb")))
 		return ERR_OPEN;
 	fclose(input);
@@ -27,7 +29,8 @@ static int	add_file(FILE *archive, char *filename)
 }
 
 // Add multiple files to a single archive
-int			ft_archive(int total, char *files[])
+// maybe rename to create.c
+int			archive(int total, char *files[])
 {
 	int		arg_index = 1;
 	FILE	*archive = fopen(files[1], "wb");
@@ -38,9 +41,10 @@ int			ft_archive(int total, char *files[])
 		while (++arg_index < total)
 			if (add_file(archive, files[arg_index]) != OK_CODE)
 				break ;
-		// create_header();
-		// create_body();
-		expand_file(archive, BLOCK_SIZE * 2);
+		// maybe create to write.c for these functions?
+		// create_header(tar, archive);
+		// create_body(tar, archive);
+		// expand_file(archive, BLOCK_SIZE * 2);
 		fclose(archive);
 	}
 	return arg_index == total ? OK_CODE : archive_error();

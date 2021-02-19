@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tar.c                                           :+:      :+:    :+:   */
+/*   unarchive.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaleman <jaleman@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,24 +12,11 @@
 
 #include "ft_tar.h"
 
-// Initialize t_tar structure
-static t_tar	*init_tar(int argc, char *argv[])
+// Extract multiple files from a single archive
+// maybe rename to extract.c
+int			unarchive(int total, char *files[])
 {
-	t_tar		*tar = malloc(sizeof(t_tar));
-
-	// save argc and argv into memory? just save what i need...
-	// handle flags here, maybe create flag.c
-	// if -x flag is here, set to = FALSE;
-	(void)argc;  // <- ignore this, just here to compile
-    (void)argv;  // <- ignore this, just here to compile
-	return tar;
-}
-
-// Process and returns status of archive creation/extraction
-int				ft_tar(int argc, char *argv[])
-{
-	t_tar		*tar = init_tar(argv);
-	
-	return should_extract(tar) ? unarchive(argc, argv) : archive(argc, argv);
-	// return should_extract(tar) ? unarchive(tar) : archive(tar);
+    (void)total;  // <- ignore this, just here to compile
+    (void)files;  // <- ignore this, just here to compile
+	return OK_CODE;
 }
