@@ -32,12 +32,11 @@ static int	add_file(FILE *archive, char *filename)
 // maybe rename to create.c
 int			archive(t_tar *tar, int total, char *files[])
 {
-    print_verbose(tar, ">> running: archive()");
 	int		arg_index = 1;
 	FILE	*archive = fopen(files[1], "wb");
 	// t_mdata	*ptr = NULL;
 
-	(void)tar;  // <- ignore this, just here to compile
+    print_verbose(tar, ">> running: archive()");
 	if (archive && !is_conflict(tar))
 	{
 		while (++arg_index < total)

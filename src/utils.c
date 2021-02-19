@@ -58,6 +58,13 @@ int		archive_error(void)
 	return ERR_CREATE;
 }
 
+// Prints archive creation error, returns code
+int		unarchive_error(void) 
+{
+	printf("Failed to extract archive!\n");
+	return ERR_EXTRACT;
+}
+
 // Expands a file
 void	expand_file(FILE *fp, size_t amount)
 {

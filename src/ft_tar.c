@@ -12,28 +12,29 @@
 
 #include "ft_tar.h"
 
+static int		save_option(int *opt, char *flag)
+{
+	char		*valid_flags[FLG_NUM] = 
+	{
+		VRB_FLG,
+		EXT_FLG,
+		CRT_FLG,
+	};
+
+	for (int i = 0; i < FLG_NUM; i += 1) 
+		if (!*opt && !strncmp(flag, valid_flags[i], 2))
+			*opt = TRUE;
+	return *opt;
+}
+
 // Returns TRUE if a flag is set, FALSE otherwise
-static int		set_flag(t_tar *tar, char **flags)
+static int		set_flags(t_tar *tar, char **flags)
 {
 	for (int i = 0; i < FLG_NUM; i += 1) 
 	{
-		// Refactor the thing bellow
-		// Check this out: https://stackoverflow.com/a/47396854
-		// To something like this:
-		//
-		// 	for (int j = 0; j < FLG_NUM; j += 1) 
-		// 		if (!tar->flag.[j] && !strncmp(flags[i], g_flags[j], 2))
-		// 			tar->flag.[j] = TRUE;
-		//
-		for (int j = 0; j < FLG_NUM; j += 1) 
-			if (!tar->flag.c && !strncmp(flags[i], g_flags[0], 2))
-				tar->flag.c = TRUE;
-		for (int j = 0; j < FLG_NUM; j += 1) 
-			if (!tar->flag.v && !strncmp(flags[i], g_flags[1], 2))
-				tar->flag.v = TRUE; 
-		for (int j = 0; j < FLG_NUM; j += 1) 
-			if (!tar->flag.x && !strncmp(flags[i], g_flags[2], 2))
-				tar->flag.x = TRUE; 
+		save_option(&tar->flag.c, flags[i]);
+		save_option(&tar->flag.v, flags[i]);
+		save_option(&tar->flag.x, flags[i]);
 	}
 	return tar->flag.c || tar->flag.x || tar->flag.v;
 }
@@ -54,7 +55,7 @@ static int		handle_flag(t_tar *tar, char *arg)
 	int			valid = is_flag(arg);
 
 	if (valid == OK_CODE)
-		set_flag(tar, flags);
+		set_flags(tar, flags);
 	return valid;
 }
 
@@ -66,7 +67,6 @@ static int		handle_file(t_tar *tar, char *arg)
 	{
 		(void)tar; // <- ignore this, just here to compile
 		(void)arg; // <- ignore this, just here to compile
-		// do file stuff...
 	}
 	return valid;
 }
@@ -93,6 +93,5 @@ int				ft_tar(int argc, char *argv[])
 {
 	t_tar		*tar = init_tar(argc, argv);
 	
-	return is_extract(tar) ? unarchive(tar, argc, argv) : archive(tar, argc, argv);
-	// refactor -> return is_extract(tar) ? unarchive(tar) : archive(tar);
+	return is_extract(tar) ? unarchive(tar) : archive(tar, argc, argv);
 }

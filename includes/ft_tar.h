@@ -24,15 +24,16 @@
 // Read block size.
 // Used 512 bytes to copy tar's block size. :)
 // Source: http://www.gnu.org/software/tar/manual/html_node/Blocking.html
-# define BLOCK_SIZE	512
+# define BLOCK_SIZE		512
 
 // Max file name length
-# define NAME_SIZE	255
-# define ERR_CODE	-1
-# define OK_CODE	0
-# define ERR_USAGE	1
-# define ERR_CREATE	2
-# define ERR_OPEN	3
+# define NAME_SIZE		255
+# define ERR_CODE		-1
+# define OK_CODE		0
+# define ERR_USAGE		1
+# define ERR_OPEN		2
+# define ERR_CREATE		3
+# define ERR_EXTRACT	4
 
 // Boolean stuff
 # define FALSE		0
@@ -83,18 +84,13 @@ typedef struct s_tar
 	t_flags		flag;
 }				t_tar;
 
-// Global variables
-char		*g_flags[FLG_NUM] = 
-{
-	VRB_FLG,
-	EXT_FLG,
-	CRT_FLG,
-};
-
 // Function prototypes
 int			is_file(char *arg);
 int			is_flag(char *arg);
+int			archive(t_tar *tar, int argc, char *argv[]);
 int			archive_error(void);
+int			unarchive(t_tar *tar);
+int			unarchive_error(void);
 int			is_extract(t_tar *tar);
 int			is_conflict(t_tar *tar);
 int			usage_error(char *name);
@@ -102,7 +98,5 @@ size_t		get_filesize(char *filename);
 int			ft_tar(int argc, char *argv[]);
 int			print_verbose(t_tar *tar, char *msg);
 void		expand_file(FILE *fp, size_t amount);
-int			archive(t_tar *tar, int argc, char *argv[]);
-int			unarchive(t_tar *tar, int argc, char *argv[]);
 
 #endif
