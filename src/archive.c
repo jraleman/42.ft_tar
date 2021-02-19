@@ -32,6 +32,7 @@ static int	add_file(FILE *archive, char *filename)
 // maybe rename to create.c
 int			archive(int total, char *files[])
 {
+	printf("archive()\n");
 	int		arg_index = 1;
 	FILE	*archive = fopen(files[1], "wb");
 	// t_mdata	*ptr = NULL;

@@ -16,6 +16,7 @@
 // maybe rename to extract.c
 int			unarchive(int total, char *files[])
 {
+    printf("unarchive()\n");
     (void)total;  // <- ignore this, just here to compile
     (void)files;  // <- ignore this, just here to compile
 	return OK_CODE;

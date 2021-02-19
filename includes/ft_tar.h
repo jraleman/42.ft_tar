@@ -46,7 +46,19 @@ typedef struct	s_mdata
 	int		nsize;
 	int		ssize;
 	struct	mdata *next;
-}	t_mdata;
+}				t_mdata;
+
+typedef struct s_flags
+{
+	int		x;
+	int		v;
+	// because by default we create an archive, 
+	// if this flag is present AND 'x' too, 
+	// we throw an error telling the user to only do one action,
+	// either archive or extract
+	int		c; 
+	// ...any other flags
+}				t_flags;
 
 typedef struct s_tar
 {
@@ -64,7 +76,8 @@ typedef struct s_tar
 	FILE			*fp;		// <- maybe won't use
 	struct mdata	*mhead;		// <- maybe won't use
 	struct mdata	*current;	// <- maybe won't use
-}	t_tar;
+	t_flags			flag;
+}				t_tar;
 
 // Function prototypes
 int			archive_error(void);

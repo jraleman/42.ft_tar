@@ -12,6 +12,12 @@
 
 #include "ft_tar.h"
 
+// See if we should create or extract an archive
+static int		should_extract(t_tar *tar)
+{
+	return tar && tar->flag.x ? TRUE : FALSE;
+}
+
 // Initialize t_tar structure
 static t_tar	*init_tar(int argc, char *argv[])
 {
@@ -28,7 +34,7 @@ static t_tar	*init_tar(int argc, char *argv[])
 // Process and returns status of archive creation/extraction
 int				ft_tar(int argc, char *argv[])
 {
-	t_tar		*tar = init_tar(argv);
+	t_tar		*tar = init_tar(argc, argv);
 	
 	return should_extract(tar) ? unarchive(argc, argv) : archive(argc, argv);
 	// return should_extract(tar) ? unarchive(tar) : archive(tar);
