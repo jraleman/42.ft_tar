@@ -12,10 +12,17 @@
 
 #include "ft_tar.h"
 
-// See if we should create or extract an archive
-static int		should_extract(t_tar *tar)
+// Returns an array of flags
+char	**get_flags(char *arg)
 {
-	return tar && tar->flag.x ? TRUE : FALSE;
+	char	**parse = NULL;
+	(void)arg; // <- ignore this, just here to compile
+
+	// flags to include
+		// VRB_FLG	"-v"
+		// EXT_FLG	"-x"
+		// CRT_FLG	"-c"
+	return parse;
 }
 
 // Handle flags taken from an argument
@@ -78,6 +85,6 @@ int				ft_tar(int argc, char *argv[])
 {
 	t_tar		*tar = init_tar(argc, argv);
 	
-	return should_extract(tar) ? unarchive(tar, argc, argv) : archive(tar, argc, argv);
-	// refactor -> return should_extract(tar) ? unarchive(tar) : archive(tar);
+	return is_extract(tar) ? unarchive(tar, argc, argv) : archive(tar, argc, argv);
+	// refactor -> return is_extract(tar) ? unarchive(tar) : archive(tar);
 }

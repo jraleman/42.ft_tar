@@ -85,14 +85,14 @@ typedef struct s_tar
 int			is_file(char *arg);
 int			is_flag(char *arg);
 int			archive_error(void);
+int			is_extract(t_tar *tar);
 int			is_conflict(t_tar *tar);
 int			usage_error(char *name);
-char		**get_flags(char *flag);
 size_t		get_filesize(char *filename);
 int			ft_tar(int argc, char *argv[]);
 int			print_verbose(t_tar *tar, char *msg);
 void		expand_file(FILE *fp, size_t amount);
-int			archive(t_tar *tar, int total, char *files[]);
-int			unarchive(t_tar *tar, int total, char *files[]);
+int			archive(t_tar *tar, int argc, char *argv[]);
+int			unarchive(t_tar *tar, int argc, char *argv[]);
 
 #endif

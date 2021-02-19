@@ -12,6 +12,12 @@
 
 #include "ft_tar.h"
 
+// See if we should create or extract an archive
+int		is_extract(t_tar *tar)
+{
+	return tar && tar->flag.x ? TRUE : FALSE;
+}
+
 // Checks if an argument is a file
 // TODO: implement function
 int		is_file(char *arg)
@@ -29,17 +35,6 @@ int		print_verbose(t_tar *tar, char *msg)
 int		is_conflict(t_tar *tar)
 {
 	return tar && tar->flag.x && tar->flag.c;
-}
-
-// Returns an array of flags
-char	**get_flags(char *flag)
-{
-	char	**parse = NULL;
-	(void)flag; // <- ignore this, just here to compile
-
-	// flags to include
-	// ...
-	return parse;
 }
 
 // Checks if an argument is a flag
