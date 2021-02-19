@@ -28,6 +28,7 @@
 
 // Max file name length
 # define NAME_SIZE	255
+# define ERR_CODE	-1
 # define OK_CODE	0
 # define ERR_USAGE	1
 # define ERR_CREATE	2
@@ -37,55 +38,61 @@
 # define FALSE		0
 # define TRUE		1
 
+// Flags
+# define VRB_FLG	"-v"
+# define EXT_FLG	"-x"
+# define CRT_FLG	"-c"
+# define FLG_NUM	3
+
 // Metadata structure
 typedef struct	s_mdata
 {
-	char	name[NAME_SIZE];
-	FILE	*fp;
-	int		size;
-	int		nsize;
-	int		ssize;
-	struct	mdata *next;
+	char		name[NAME_SIZE];
+	FILE		*fp;
+	int			size;
+	int			nsize;
+	int			ssize;
+	struct		mdata *next;
 }				t_mdata;
 
 typedef struct s_flags
 {
-	int		x;
-	int		v;
-	// because by default we create an archive, 
-	// if this flag is present AND 'x' too, 
-	// we throw an error telling the user to only do one action,
-	// either archive or extract
-	int		c; 
-	// ...any other flags
+	int			x;
+	int			v;
+	int			c;
 }				t_flags;
 
 typedef struct s_tar
 {
-	char			**files;
-	char			block[BLOCK_SIZE];
-	char			stsize[5];
-	char			shsize[100];
-	int				rsize;
-	int				tnsize;
-	int				tssize;
-	int				hsize;
-	int				scount;
-	int				fcount;
-	FILE			*fpar;		// <- maybe won't use
-	FILE			*fp;		// <- maybe won't use
-	struct mdata	*mhead;		// <- maybe won't use
-	struct mdata	*current;	// <- maybe won't use
-	t_flags			flag;
+	char		**files;
+	char		block[BLOCK_SIZE];
+	char		stsize[5];
+	char		shsize[100];
+	int			rsize;
+	int			tnsize;
+	int			tssize;
+	int			hsize;
+	int			scount;
+	int			fcount;
+	FILE		*fpar;		// <- maybe won't use
+	FILE		*fp;		// <- maybe won't use
+	t_mdata		*mhead;		// <- maybe won't use
+	t_mdata		*current;	// <- maybe won't use
+	t_flags		flag;
 }				t_tar;
 
 // Function prototypes
+int			is_file(char *arg);
+int			is_flag(char *arg);
 int			archive_error(void);
+int			is_conflict(t_tar *tar);
 int			usage_error(char *name);
+char		**get_flags(char *flag);
 size_t		get_filesize(char *filename);
 int			ft_tar(int argc, char *argv[]);
-int			archive(int total, char *files[]);
-int			unarchive(int total, char *files[]);
+int			print_verbose(t_tar *tar, char *msg);
 void		expand_file(FILE *fp, size_t amount);
+int			archive(t_tar *tar, int total, char *files[]);
+int			unarchive(t_tar *tar, int total, char *files[]);
 
 #endif

@@ -18,16 +18,58 @@ static int		should_extract(t_tar *tar)
 	return tar && tar->flag.x ? TRUE : FALSE;
 }
 
+// Handle flags taken from an argument
+static int		handle_flag(t_tar *tar, char *arg)
+{
+	char		*flag;
+	char		**flags = get_flags(arg);
+	int			valid = is_flag(arg);
+
+	if (valid == OK_CODE)
+	{
+		for (int i = 0; i < FLG_NUM; i += 1) 
+		{
+			// Refactor this into a function, like 
+			// Check this out: https://stackoverflow.com/a/47396854 
+			flag = flags[i];
+			if (!tar->flag.c && !strncmp(flag, CRT_FLG, 2))
+				tar->flag.c = TRUE;
+			if (!tar->flag.v && !strncmp(flag, VRB_FLG, 2))
+				tar->flag.v = TRUE; 
+			if (!tar->flag.x && !strncmp(flag, EXT_FLG, 2))
+				tar->flag.x = TRUE; 
+		}
+	}
+	return valid;
+}
+
+// Handle a file taken from an argument
+static int		handle_file(t_tar *tar, char *arg)
+{
+	int valid = is_flag(arg) && is_file(arg);
+	if (valid == OK_CODE)
+	{
+		(void)tar; // <- ignore this, just here to compile
+		(void)arg; // <- ignore this, just here to compile
+		// do file stuff...
+	}
+	return valid;
+}
+
+// Parses the argument, handling either flag or file
+static int		parse_arg(t_tar *tar, char *arg)
+{
+	return handle_flag(tar, arg) || handle_file(tar, arg);
+}
+
 // Initialize t_tar structure
 static t_tar	*init_tar(int argc, char *argv[])
 {
 	t_tar		*tar = malloc(sizeof(t_tar));
 
-	// save argc and argv into memory? just save what i need...
-	// handle flags here, maybe create flag.c
-	// if -x flag is here, set to = FALSE;
-	(void)argc;  // <- ignore this, just here to compile
-    (void)argv;  // <- ignore this, just here to compile
+	for (int i = 0; tar && i < argc; i += 1) 
+		if (!parse_arg(tar, argv[i]))
+			tar = NULL;
 	return tar;
 }
 
@@ -36,6 +78,6 @@ int				ft_tar(int argc, char *argv[])
 {
 	t_tar		*tar = init_tar(argc, argv);
 	
-	return should_extract(tar) ? unarchive(argc, argv) : archive(argc, argv);
-	// return should_extract(tar) ? unarchive(tar) : archive(tar);
+	return should_extract(tar) ? unarchive(tar, argc, argv) : archive(tar, argc, argv);
+	// refactor -> return should_extract(tar) ? unarchive(tar) : archive(tar);
 }

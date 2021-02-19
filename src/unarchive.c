@@ -14,10 +14,11 @@
 
 // Extract multiple files from a single archive
 // maybe rename to extract.c
-int			unarchive(int total, char *files[])
+int			unarchive(t_tar *tar, int total, char *files[])
 {
-    printf("unarchive()\n");
+    print_verbose(tar, ">> running: unarchive()");
     (void)total;  // <- ignore this, just here to compile
     (void)files;  // <- ignore this, just here to compile
+    (void)tar;  // <- ignore this, just here to compile
 	return OK_CODE;
 }

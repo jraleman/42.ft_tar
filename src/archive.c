@@ -30,14 +30,15 @@ static int	add_file(FILE *archive, char *filename)
 
 // Add multiple files to a single archive
 // maybe rename to create.c
-int			archive(int total, char *files[])
+int			archive(t_tar *tar, int total, char *files[])
 {
-	printf("archive()\n");
+    print_verbose(tar, ">> running: archive()");
 	int		arg_index = 1;
 	FILE	*archive = fopen(files[1], "wb");
 	// t_mdata	*ptr = NULL;
 
-	if (archive) 
+	(void)tar;  // <- ignore this, just here to compile
+	if (archive && !is_conflict(tar))
 	{
 		while (++arg_index < total)
 			if (add_file(archive, files[arg_index]) != OK_CODE)
