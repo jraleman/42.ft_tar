@@ -45,4 +45,9 @@ typedef struct	s_mdata
 	char	padding[255];
 }	t_mdata;
 
+int		usage_error(char *name);
+int		archive_error(void);
+void	expand_file(FILE *fp, size_t amount);
+int		ft_archive(char *argv[], int argc);
+
 #endif
