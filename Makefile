@@ -14,6 +14,7 @@ NAME		= ft_tar
 SRC			= $(wildcard src/*.c)
 
 INC			= includes/
+BIN			= bin/
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -I $(INC)
 OBJ			= $(SRC:.c=.o)
@@ -26,16 +27,17 @@ all: $(NAME)
 	@printf "[$(NAME)] Compiling [:.]\r"
 
 $(NAME): $(OBJ)
+	@mkdir -p $(BIN)
+	@gcc $(CFLAGS) $(OBJ) -o $(BIN)/$(NAME)
 	@printf "[$(NAME)] Compiled successfuly! [OK]\n"
-	@gcc $(CFLAGS) $(OBJ) -o $(NAME)
 debug: $(OBJ)
+	@gcc $(CFLAGS) $(DEBUG) $(OBJ) -o $(BIN)/$(NAME)
 	@printf "[$(NAME)] Compiled debug successfuly! [OK]\n"
-	@gcc $(CFLAGS) $(DEBUG) $(OBJ) -o $(NAME)
 clean:
-	@/bin/rm -f $(OBJ)
+	@rm -f $(OBJ)
 	@printf "[$(NAME)] Removed object files!\n"
 fclean: clean
-	@/bin/rm -f $(NAME)
+	@rm -rf $(BIN)
 	@printf "[$(NAME)] Removed $(NAME) binary!\n"
 re: fclean all
 
