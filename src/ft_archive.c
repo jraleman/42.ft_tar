@@ -10,40 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "ft_tar.h"
 
 // Add files to archive
-static int	add_file(FILE *tar, char *name)
+static int	add_file(FILE *archive, char *filename)
 {
-	int		ret = OK_CODE;
 	FILE	*input = NULL;
-	size_t	index = ftell(tar);
-	size_t	offset = index % BLOCK_SIZE;
+	int		size = get_filesize(filename);
 
-	if (offset != 0)
-		expand_file(tar, BLOCK_SIZE - offset);
-	index = ftell(tar);
-	expand_file(tar, sizeof(t_mdata));
-	if (!(input = fopen(name, "rb")))
-		ret = ERR_OPEN;
+	(void)archive;  // <- ignore this, just here to compile
+	// Open and close ()
+	if (!(input = fopen(filename, "rb")))
+		return ERR_OPEN;
 	fclose(input);
-	return ret;
+	return OK_CODE;
 }
 
 // Add multiple files to a single archive
-int			ft_archive(char *names[], int count)
+int			ft_archive(int total, char *files[])
 {
 	int		arg_index = 1;
-	FILE	*tar = fopen(names[1], "wb");
+	FILE	*archive = fopen(files[1], "wb");
 	// t_mdata	*ptr = NULL;
 
-	if (tar) 
+	if (archive) 
 	{
-		while (++arg_index < count)
-			if (add_file(tar, names[arg_index]) != OK_CODE)
+		while (++arg_index < total)
+			if (add_file(archive, files[arg_index]) != OK_CODE)
 				break ;
-		expand_file(tar, BLOCK_SIZE * 2);
-		fclose(tar);
+		// create_header();
+		// create_body();
+		expand_file(archive, BLOCK_SIZE * 2);
+		fclose(archive);
 	}
-	return arg_index == count ? OK_CODE : archive_error();
+	return arg_index == total ? OK_CODE : archive_error();
 }

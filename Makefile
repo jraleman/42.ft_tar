@@ -10,16 +10,14 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= ft_tar
-SRC			= src/main.c \
-				  src/utils.c \
-				  src/ft_archive.c \
+NAME		= ft_tar
+SRC			= $(wildcard src/*.c)
 
 INC			= includes/
-CC				= gcc
+CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -I $(INC)
 OBJ			= $(SRC:.c=.o)
-DEBUG			= -g3 -fsanitize=address
+DEBUG		= -g3 -fsanitize=address
 
 all: $(NAME)
 %.o: %.c

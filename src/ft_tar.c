@@ -13,7 +13,7 @@
 #include "ft_tar.h"
 
 // Main function
-int			main(int argc, char *argv[]) 
+int			ft_tar(int argc, char *argv[]) 
 {
-	return argc > 2 ? ft_tar(argc, argv) : usage_error(argv[0]);
+	return ft_archive(argc, argv);
 }

@@ -18,36 +18,56 @@
 # include <string.h>
 # include <stdlib.h>
 # include <strings.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 
 // Read block size.
 // Used 512 bytes to copy tar's block size. :)
 // Source: http://www.gnu.org/software/tar/manual/html_node/Blocking.html
-# define BLOCK_SIZE	(512)
+# define BLOCK_SIZE	512
 
-// Program return values
-# define OK_CODE	(0)
-# define ERR_USAGE	(1)
-# define ERR_CREATE	(2)
-# define ERR_OPEN	(3)
+// Max file name length
+# define NAME_SIZE	255
+# define OK_CODE	0
+# define ERR_USAGE	1
+# define ERR_CREATE	2
+# define ERR_OPEN	3
 
 // Metadata structure
 typedef struct	s_mdata
 {
-	char	name[100];
-	char	mode[8];
-	char	owner[8];
-	char	group[8];
-	char	size[12];
-	char	modified[12];
-	char	checksum[8];
-	char	type[1];
-	char	link[100];
-	char	padding[255];
+	char	name[NAME_SIZE];
+	FILE	*fp;
+	int		size;
+	int		nsize;
+	int		ssize;
+	struct	mdata *next;
 }	t_mdata;
 
-int		usage_error(char *name);
-int		archive_error(void);
-void	expand_file(FILE *fp, size_t amount);
-int		ft_archive(char *argv[], int argc);
+typedef struct s_tar
+{
+	char			**files;
+	char			block[BLOCK_SIZE];
+	char			stsize[5];
+	char			shsize[100];
+	int				rsize;
+	int				tnsize;
+	int				tssize;
+	int				hsize;
+	int				scount;
+	int				fcount;
+	FILE			*fpar;		// <- maybe won't use
+	FILE			*fp;		// <- maybe won't use
+	struct mdata	*mhead;		// <- maybe won't use
+	struct mdata	*current;	// <- maybe won't use
+}	t_tar;
+
+// Function prototypes
+int			usage_error(char *name);
+int			archive_error(void);
+void		expand_file(FILE *fp, size_t amount);
+int			ft_archive(int total, char *files[]);
+int			ft_tar(int argc, char *argv[]);
+size_t		get_filesize(char *filename);
 
 #endif
