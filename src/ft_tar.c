@@ -12,41 +12,49 @@
 
 #include "ft_tar.h"
 
+// Returns TRUE if a flag is set, FALSE otherwise
+static int		set_flag(t_tar *tar, char **flags)
+{
+	for (int i = 0; i < FLG_NUM; i += 1) 
+	{
+		// Refactor the thing bellow
+		// Check this out: https://stackoverflow.com/a/47396854
+		// To something like this:
+		//
+		// 	for (int j = 0; j < FLG_NUM; j += 1) 
+		// 		if (!tar->flag.[j] && !strncmp(flags[i], g_flags[j], 2))
+		// 			tar->flag.[j] = TRUE;
+		//
+		for (int j = 0; j < FLG_NUM; j += 1) 
+			if (!tar->flag.c && !strncmp(flags[i], g_flags[0], 2))
+				tar->flag.c = TRUE;
+		for (int j = 0; j < FLG_NUM; j += 1) 
+			if (!tar->flag.v && !strncmp(flags[i], g_flags[1], 2))
+				tar->flag.v = TRUE; 
+		for (int j = 0; j < FLG_NUM; j += 1) 
+			if (!tar->flag.x && !strncmp(flags[i], g_flags[2], 2))
+				tar->flag.x = TRUE; 
+	}
+	return tar->flag.c || tar->flag.x || tar->flag.v;
+}
+
 // Returns an array of flags
-char	**get_flags(char *arg)
+static char		**get_flags(char *arg)
 {
 	char	**parse = NULL;
 	(void)arg; // <- ignore this, just here to compile
 
-	// flags to include
-		// VRB_FLG	"-v"
-		// EXT_FLG	"-x"
-		// CRT_FLG	"-c"
 	return parse;
 }
 
 // Handle flags taken from an argument
 static int		handle_flag(t_tar *tar, char *arg)
 {
-	char		*flag;
 	char		**flags = get_flags(arg);
 	int			valid = is_flag(arg);
 
 	if (valid == OK_CODE)
-	{
-		for (int i = 0; i < FLG_NUM; i += 1) 
-		{
-			// Refactor this into a function, like 
-			// Check this out: https://stackoverflow.com/a/47396854 
-			flag = flags[i];
-			if (!tar->flag.c && !strncmp(flag, CRT_FLG, 2))
-				tar->flag.c = TRUE;
-			if (!tar->flag.v && !strncmp(flag, VRB_FLG, 2))
-				tar->flag.v = TRUE; 
-			if (!tar->flag.x && !strncmp(flag, EXT_FLG, 2))
-				tar->flag.x = TRUE; 
-		}
-	}
+		set_flag(tar, flags);
 	return valid;
 }
 

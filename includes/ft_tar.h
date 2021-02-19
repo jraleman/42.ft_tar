@@ -55,6 +55,7 @@ typedef struct	s_mdata
 	struct		mdata *next;
 }				t_mdata;
 
+// Flags structure
 typedef struct s_flags
 {
 	int			x;
@@ -62,6 +63,7 @@ typedef struct s_flags
 	int			c;
 }				t_flags;
 
+// Mains structure
 typedef struct s_tar
 {
 	char		**files;
@@ -80,6 +82,14 @@ typedef struct s_tar
 	t_mdata		*current;	// <- maybe won't use
 	t_flags		flag;
 }				t_tar;
+
+// Global variables
+char		*g_flags[FLG_NUM] = 
+{
+	VRB_FLG,
+	EXT_FLG,
+	CRT_FLG,
+};
 
 // Function prototypes
 int			is_file(char *arg);
