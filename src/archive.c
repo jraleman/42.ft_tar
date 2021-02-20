@@ -12,6 +12,35 @@
 
 #include "ft_tar.h"
 
+// Sets tar archive header
+static void	set_header(t_tar *tar, FILE *archive)
+{
+	(void)tar;
+	(void)archive;
+}
+
+// Sets tar archive body
+static void	set_body(t_tar *tar, FILE *archive)
+{
+	(void)tar;
+	(void)archive;
+}
+
+// Renames archive file to make backup
+static void	make_backup(char *name)
+{
+	// Rename to `${archive.backup_{NUM}.tar}`
+	(void)name;
+}
+
+// Create an archive file
+static FILE	*create_archive(char *name)
+{
+	if (is_file(name))
+		make_backup(name);
+	return fopen(name, "wb");
+}
+
 // Add files to archive
 static int	add_file(FILE *archive, char *filename)
 {
@@ -33,8 +62,7 @@ static int	add_file(FILE *archive, char *filename)
 int			archive(t_tar *tar, int total, char *files[])
 {
 	int		arg_index = 1;
-	FILE	*archive = fopen(files[1], "wb");
-	// t_mdata	*ptr = NULL;
+	FILE	*archive = create_archive(files[1]);
 
     print_verbose(tar, ">> running: archive()");
 	if (archive && !is_conflict(tar))
@@ -42,9 +70,8 @@ int			archive(t_tar *tar, int total, char *files[])
 		while (++arg_index < total)
 			if (add_file(archive, files[arg_index]) != OK_CODE)
 				break ;
-		// maybe create to write.c for these functions?
-		// create_header(tar, archive);
-		// create_body(tar, archive);
+		set_header(tar, archive);
+		set_body(tar, archive);
 		// expand_file(archive, BLOCK_SIZE * 2);
 		fclose(archive);
 	}

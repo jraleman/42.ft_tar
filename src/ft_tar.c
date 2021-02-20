@@ -12,6 +12,7 @@
 
 #include "ft_tar.h"
 
+// Save flag option
 static int		save_option(int *opt, char *flag)
 {
 	char		*valid_flags[FLG_NUM] = 
@@ -64,10 +65,7 @@ static int		handle_file(t_tar *tar, char *arg)
 {
 	int valid = is_flag(arg) && is_file(arg);
 	if (valid == OK_CODE)
-	{
 		(void)tar; // <- ignore this, just here to compile
-		(void)arg; // <- ignore this, just here to compile
-	}
 	return valid;
 }
 
@@ -93,5 +91,6 @@ int				ft_tar(int argc, char *argv[])
 {
 	t_tar		*tar = init_tar(argc, argv);
 	
+	// printf(">> tar.files[0] : %s", tar->files[0]);
 	return is_extract(tar) ? unarchive(tar) : archive(tar, argc, argv);
 }

@@ -2,6 +2,22 @@
 
 **[!] WARNING [!]** 
 - *Norminette is not being followed in this project*
+I am not following any rules, this is my own implementation.
+
+## TODO
+
+### Functionality
+
+- [ ] Functionality
+    - [x] Archive
+    - [ ] Unarchive
+    - [ ] Compress
+- [ ] Flags
+    - [ ] `-x`
+    - [x] `-c` 
+    - [x] `-v`
+    - [ ] `-z`
+- [x] Makefile
 
 ## Resources
 
