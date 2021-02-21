@@ -36,28 +36,15 @@
 # define ERR_EXTRACT	4
 
 // Boolean stuff
-# define FALSE		0
-# define TRUE		1
+# define FALSE			0
+# define TRUE			1
 
 // Flags
-# define VRB_FLG	"-v"
-# define EXT_FLG	"-x"
-# define CRT_FLG	"-c"
-
-// String variants
-# define VARIANT_01	"-vx"
-# define VARIANT_02	"-vc"
-# define VARIANT_04	"-vxc"
-# define VARIANT_05	"-vcc"
-# define VARIANT_06	"-xc"
-# define VARIANT_07	"-xv"
-# define VARIANT_08	"-xvc"
-# define VARIANT_09	"-xcv"
-# define VARIANT_10	"-cx"
-# define VARIANT_11	"-cv"
-# define VARIANT_12	"-cvx"
-# define VARIANT_13	"-cxv"
-# define FLG_NUM	3
+# define VRB_FLG		"v"
+# define EXT_FLG		"x"
+# define CRT_FLG		"c"
+# define FLAGS			VRB_FLG, EXT_FLG, CRT_FLG
+# define FLAGS_NUM		3
 
 // Metadata structure
 typedef struct	s_mdata

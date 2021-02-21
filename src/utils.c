@@ -22,7 +22,7 @@ int		is_extract(t_tar *tar)
 int		is_file(char *arg)
 {
 	struct stat	buff;
-	return !stat(arg, &buff);
+	return stat(arg, &buff);
 }
 
 // Prints verbose output, returns number of bytes
@@ -41,7 +41,7 @@ int		is_conflict(t_tar *tar)
 // something like strstr() + is_anagram()
 int		is_flag(char *arg)
 {
-	return arg ? TRUE : FALSE;
+	return arg && arg[0] == '-' && arg[1];
 }
 
 // Prints usage message, returns error code

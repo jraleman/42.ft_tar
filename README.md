@@ -1,8 +1,13 @@
 # ft_tar
 
 **[!] WARNING [!]** 
+
 - *Norminette is not being followed in this project*
 I am not following any rules, this is my own implementation.
+
+## Known Issues
+
+- Doesn't work.
 
 ## TODO
 
